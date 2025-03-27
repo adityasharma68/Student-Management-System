@@ -51,13 +51,13 @@ const AssignmentListPage = () => {
       <td className="hidden md:table-cell">{item.dueDate}</td>
       <td>
         <div className="flex items-center gap-2">
-          {role === "admin" ||
-            (role === "teacher" && (
+          {(role === "admin" ||
+            role === "teacher") && (
               <>
                 <FormModal table="assignment" type="update" data={item} />
                 <FormModal table="assignment" type="delete" id={item.id} />
               </>
-            ))}
+            )}
         </div>
       </td>
     </tr>
@@ -79,10 +79,10 @@ const AssignmentListPage = () => {
             <button className="flex w-8 h-8 items-center justify-center rounded-full bg-rajYellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" ||
-              (role === "teacher" && (
+            {(role === "admin" ||
+              role === "teacher") && (
                 <FormModal table="assignment" type="create" />
-              ))}
+              )}
           </div>
         </div>
       </div>

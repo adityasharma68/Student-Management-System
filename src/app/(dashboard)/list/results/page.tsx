@@ -66,13 +66,13 @@ const ResultListPage = () => {
       <td className="hidden md:table-cell">{item.date}</td>
       <td>
         <div className="flex items-center gap-2">
-          {role === "admin" ||
-            (role === "teacher" && (
+          {(role === "admin" ||
+            role === "teacher") && (
               <>
                 <FormModal table="result" type="update" data={item} />
                 <FormModal table="result" type="delete" id={item.id} />
               </>
-            ))}
+            )}
         </div>
       </td>
     </tr>
@@ -92,10 +92,10 @@ const ResultListPage = () => {
             <button className="flex w-8 h-8 items-center justify-center rounded-full bg-rajYellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" ||
-              (role === "teacher" && (
+            {(role === "admin" ||
+              role === "teacher") && (
                 <FormModal table="result" type="create" />
-              ))}
+              )}
           </div>
         </div>
       </div>
