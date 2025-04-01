@@ -1,26 +1,72 @@
-import { auth } from "@clerk/nextjs/server";
+// import { auth } from "@clerk/nextjs/server";
 
-export const fetchAuthData = async () => {
-  const authData = await auth();
-  if (authData) {
-    const userId = authData.userId ?? undefined;
-    const userRole = (authData.sessionClaims?.metadata as { role?: string })
-      ?.role;
-    console.log("Fetched User ID:", userId);
-    console.log("Fetched User Role:", userRole);
-    return { userId, userRole };
-  } else {
-    console.log("No auth data found.");
-    return { userId: undefined, userRole: undefined };
-  }
+// export const fetchAuthData = async () => {
+//   const authData = await auth();
+//   if (authData) {
+//     const userId = authData.userId ?? undefined;
+//     const userRole = (authData.sessionClaims?.metadata as { role?: string })
+//       ?.role;
+//     // console.log("Fetched User ID:", userId);
+//     // console.log("Fetched User Role:", userRole);
+//     return { userId, userRole };
+//   } else {
+//     // console.log("No auth data found.");
+//     return { userId: undefined, userRole: undefined };
+//   }
+// };
+
+// export const getRole = async () => {
+//   const { userRole } = await fetchAuthData();
+//   return userRole;
+// };
+
+// export const getUserId = async () => {
+//   const { userId } = await fetchAuthData();
+//   return userId;
+// };
+
+// IT APPEARS THAT BIG CALENDAR SHOWS THE LAST WEEK WHEN THE CURRENT DAY IS A WEEKEND.
+// FOR THIS REASON WE'LL GET THE LAST WEEK AS THE REFERENCE WEEK.
+// IN THE TUTORIAL WE'RE TAKING THE NEXT WEEK AS THE REFERENCE WEEK.
+
+const getLatestMonday = (): Date => {
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+  const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  const latestMonday = today;
+  latestMonday.setDate(today.getDate() - daysSinceMonday);
+  return latestMonday;
 };
 
-export const getRole = async () => {
-  const { userRole } = await fetchAuthData();
-  return userRole;
-};
+export const adjustScheduleToCurrentWeek = (
+  lessons: { title: string; start: Date; end: Date }[]
+): { title: string; start: Date; end: Date }[] => {
+  const latestMonday = getLatestMonday();
 
-export const getUserId = async () => {
-  const { userId } = await fetchAuthData();
-  return userId;
+  return lessons.map((lesson) => {
+    const lessonDayOfWeek = lesson.start.getDay();
+
+    const daysFromMonday = lessonDayOfWeek === 0 ? 6 : lessonDayOfWeek - 1;
+
+    const adjustedStartDate = new Date(latestMonday);
+
+    adjustedStartDate.setDate(latestMonday.getDate() + daysFromMonday);
+    adjustedStartDate.setHours(
+      lesson.start.getHours(),
+      lesson.start.getMinutes(),
+      lesson.start.getSeconds()
+    );
+    const adjustedEndDate = new Date(adjustedStartDate);
+    adjustedEndDate.setHours(
+      lesson.end.getHours(),
+      lesson.end.getMinutes(),
+      lesson.end.getSeconds()
+    );
+
+    return {
+      title: lesson.title,
+      start: adjustedStartDate,
+      end: adjustedEndDate,
+    };
+  });
 };
