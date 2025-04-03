@@ -1,4 +1,5 @@
 import { FieldError } from "react-hook-form";
+import { boolean } from "zod";
 
 type InputFieldProps = {
   label: string;
@@ -8,6 +9,7 @@ type InputFieldProps = {
   defaultValue?: string;
   error?: FieldError;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  hidden?: boolean;
 };
 
 const InputField = ({
@@ -18,6 +20,7 @@ const InputField = ({
   defaultValue,
   error,
   inputProps,
+  hidden
 }: InputFieldProps) => {
   return (
     <div className="flex flex-col gap-2 w-full md:w-1/4">
@@ -25,14 +28,14 @@ const InputField = ({
       <input
         type={type}
         {...register(name)}
-        className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+        className={`ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full ${
+          hidden ? "hidden" : ""
+        }`}
         {...inputProps}
         defaultValue={defaultValue}
       />
       {error?.message && (
-        <p className="text-xs text-red-400">
-          {error.message.toString()}
-        </p>
+        <p className="text-xs text-red-400">{error.message.toString()}</p>
       )}
     </div>
   );
