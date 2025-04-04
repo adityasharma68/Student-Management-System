@@ -129,14 +129,14 @@ const AssignmentListPage = async ({
         },
       };
       break;
-    case "parent":
-      query.lesson.class = {
-        students: {
-          some: {
-            parentId: currentUserId!,
-          },
-        },
-      };
+    // case "parent":
+    //   query.lesson.class = {
+    //     students: {
+    //       some: {
+    //         parentId: currentUserId!,
+    //       },
+    //     },
+    //   };
       break;
     default:
       break;
@@ -170,12 +170,12 @@ const AssignmentListPage = async ({
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-rajYellow">
+            {/* <button className="w-8 h-8 flex items-center justify-center rounded-full bg-rajYellow">
               <Image src="/filter.png" alt="" width={14} height={14} />
             </button>
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-rajYellow">
               <Image src="/sort.png" alt="" width={14} height={14} />
-            </button>
+            </button> */}
             {(role === "admin" || role === "teacher") && (
               <FormModal table="assignment" type="create" />
             )}

@@ -134,10 +134,10 @@ const ResultListPage = async ({
     case "student":
       query.studentId = currentUserId!;
       break;
-    case "parent":
-      query.student = {
-        parentId: currentUserId!,
-      };
+    // case "parent":
+    //   query.student = {
+    //     parentId: currentUserId!,
+    //   };
       break;
     default:
       break;
@@ -202,12 +202,12 @@ const ResultListPage = async ({
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-rajYellow">
+            {/* <button className="w-8 h-8 flex items-center justify-center rounded-full bg-rajYellow">
               <Image src="/filter.png" alt="Filter" width={14} height={14} />
             </button>
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-rajYellow">
               <Image src="/sort.png" alt="Sort" width={14} height={14} />
-            </button>
+            </button> */}
             {(role === "admin" || role === "teacher") && (
               <FormContainer table="result" type="create" />
             )}

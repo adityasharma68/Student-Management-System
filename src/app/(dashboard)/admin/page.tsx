@@ -20,7 +20,7 @@ const AdminPage = ({
           <UserCard type="admin" />
           <UserCard type="teacher" />
           <UserCard type="student" />
-          <UserCard type="parent" />
+          {/* <UserCard type="parent" /> */}
         </div>
 
         {/* MIDDLE CHART */}

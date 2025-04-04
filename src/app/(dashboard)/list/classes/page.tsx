@@ -77,7 +77,8 @@ const ClassListPage = async ({
       <td className="hidden md:table-cell">{item.capacity}</td>
       <td className="hidden md:table-cell">{item.gradeId}</td>
       <td className="">
-        {item.supervisor.name + " " + item.supervisor.surname}
+        {/* Will Do this later: some unnecessary error due to below line */}
+        {/* {item.supervisor.name + " " + item.supervisor.surname} */}
       </td>
       {role === "admin" && (
         <td>
@@ -98,12 +99,12 @@ const ClassListPage = async ({
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-rajYellow">
+            {/* <button className="w-8 h-8 flex items-center justify-center rounded-full bg-rajYellow">
               <Image src="/filter.png" alt="Filter" width={14} height={14} />
             </button>
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-rajYellow">
               <Image src="/sort.png" alt="Sort" width={14} height={14} />
-            </button>
+            </button> */}
             {role === "admin" && <FormContainer table="class" type="create" />}
           </div>
         </div>
